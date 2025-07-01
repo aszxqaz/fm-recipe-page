@@ -1,0 +1,300 @@
+@font-face {
+  font-family: "Young Serif";
+  src: url("./assets/fonts/young-serif/YoungSerif-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("./assets/fonts/outfit/static/Outfit-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("./assets/fonts/outfit/static/Outfit-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("./assets/fonts/outfit/static/Outfit-Bold.ttf");
+  font-weight: 700;
+}
+
+@layer properties {
+  :root {
+    --color-rose-800: hsl(332, 51%, 32%);
+    --color-rose-50: hsl(330, 100%, 98%);
+    --color-stone-900: hsl(24, 5%, 18%);
+    --color-stone-600: hsl(30, 10%, 34%);
+    --color-stone-150: hsl(30, 18%, 87%);
+    --color-stone-100: hsl(30, 54%, 90%);
+    --color-brown-800: hsl(14, 45%, 36%);
+    --color-white: hsl(0, 0%, 100%);
+
+    --font-family-sans: "Outfit", sans-serif;
+    --font-family-serif: "Young Serif", serif;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-size-400: 1rem;
+    --font-size-600: 1.25rem;
+    --font-size-800: 1.75rem;
+    --font-size-900: 2.5rem;
+    --font-size-900-resp: clamp(2.25rem, 2rem + 1vw, 2.5rem);
+    --line-height-body: 1.5;
+    --line-height-heading: 1;
+
+    --border-radius-md: 0.75rem;
+    --border-radius-lg: 1.5rem;
+
+    --tablet-breakpoint: 45rem;
+  }
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  ul,
+  ol,
+  p {
+    margin: 0;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer global {
+  body {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-400);
+    line-height: var(--line-height-body);
+    color: var(--color-stone-600);
+
+    @media screen and (min-width: 45rem) {
+      background-color: var(--color-stone-100);
+    }
+  }
+
+  h1,
+  h2 {
+    line-height: var(--line-height-heading);
+    font-family: var(--font-family-serif);
+    margin-block-end: 1.5rem;
+  }
+
+  ol {
+    padding-inline-start: 1.4em;
+  }
+
+  ul {
+    padding-inline-start: 1.1em;
+
+    li::marker {
+      font-size: 0.8em;
+    }
+  }
+
+  li {
+    padding-inline-start: 1rem;
+    &:not(:last-child) {
+      margin-block-end: 0.5rem;
+    }
+  }
+}
+
+@layer utility {
+  .fw-bold {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .fw-semibold {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .center-x {
+    margin: auto;
+  }
+
+  .tablet-spacer-y {
+    @media screen and (min-width: 45rem) {
+      margin-block: 8rem;
+    }
+  }
+}
+
+@layer components {
+  .page-layout {
+    --page-layout-padding: 4.75rem;
+
+    @media screen and (min-width: 45rem) {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      grid-template-columns: var(--page-layout-padding) 1fr var(
+          --page-layout-padding
+        );
+      grid-template-rows: 1fr max-content;
+
+      & > * {
+        grid-column-start: 2;
+      }
+    }
+  }
+
+  .recipe-card {
+    display: grid;
+    grid-template-columns: 2rem 1fr 2rem;
+
+    max-width: 46rem;
+    background-color: var(--color-white);
+    padding-bottom: 2.5rem;
+
+    @media screen and (min-width: 45rem) {
+      padding-top: 2.5rem;
+      border-radius: var(--border-radius-lg);
+    }
+
+    > * {
+      grid-column-start: 2;
+    }
+
+    > .recipe-card__header {
+      grid-column: span 3;
+      margin-block-end: 2rem;
+
+      display: grid;
+      --padding-inline: 2rem;
+      grid-template-columns: var(--padding-inline) 1fr var(--padding-inline);
+
+      @media screen and (min-width: 45rem) {
+        --padding-inline: 2.5rem;
+        grid-column: 2 / 3;
+      }
+
+      > * {
+        grid-column: 2 / 3;
+        @media screen and (min-width: 45rem) {
+          grid-column: span 3;
+        }
+      }
+
+      > img {
+        margin-bottom: 2.5rem;
+        grid-column: span 3;
+        width: 100%;
+        aspect-ratio: 2.2;
+        object-fit: cover;
+
+        @media screen and (min-width: 45rem) {
+          height: 18.75rem;
+          aspect-ratio: initial;
+          grid-column: span 3;
+          border-radius: var(--border-radius-md);
+        }
+      }
+
+      > h1,
+      > h2 {
+        font-size: 2.25rem;
+        font-size: var(--font-size-900-resp);
+        color: var(--color-stone-900);
+      }
+
+      > p {
+        margin-block-end: 2rem;
+      }
+    }
+
+    > .recipe-card__section {
+      margin-block-end: 2rem;
+
+      &:not(:last-child)::after {
+        content: "";
+        display: block;
+        margin-block-start: 2rem;
+        width: 100%;
+        height: 0.0625rem;
+        background-color: var(--color-stone-150);
+      }
+
+      > h2,
+      > h3 {
+        font-size: var(--font-size-800);
+        color: var(--color-brown-800);
+      }
+    }
+
+    .recipe-card__inner-surface {
+      background-color: var(--color-rose-50);
+      border-radius: var(--border-radius-md);
+      padding: 1.5rem;
+
+      h2 {
+        font-family: var(--font-family-sans);
+        font-size: var(--font-size-600);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-rose-800);
+      }
+
+      li::marker {
+        color: var(--color-rose-800);
+      }
+    }
+  }
+
+  .instructions-list {
+    > li::marker {
+      color: var(--color-brown-800);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+
+  .table {
+    width: 100%;
+
+    tr,
+    th,
+    td {
+      display: flex;
+    }
+
+    th,
+    td {
+      flex: 1;
+    }
+
+    tr {
+      padding: 0.75rem 2rem;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--color-stone-100);
+      }
+    }
+
+    th {
+      font-weight: var(--font-weight-normal);
+    }
+
+    td {
+      color: var(--color-brown-800);
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}
